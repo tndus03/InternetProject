@@ -1,25 +1,11 @@
 from django.shortcuts import render
-from .models import Puzzle
+from .models import Post
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
-def index(request):
-    puzzles = Puzzle.objects.all().order_by('-pk')
+class PostList(ListView):
+    model = Post
+    ordering = '-pk'
 
-    return render(
-        request,
-        'shopping/index.html',
-        {
-            'puzzles' : puzzles,
-        }
-    )
-
-def single_post_page(request, pk):
-    puzzle = Puzzle.objects.get(pk=pk)
-
-    return render(
-        request,
-        'shopping/single_post_page.html',
-        {
-            'puzzle': puzzle,
-        }
-    )
+class PostDetail(DetailView):
+    model = Post

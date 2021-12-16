@@ -1,6 +1,6 @@
 from django.db import models
 
-class Puzzle(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=50)  # 퍼즐 이름
     content = models.TextField()  # 퍼즐 설명
     price = models.IntegerField()  # 가격
