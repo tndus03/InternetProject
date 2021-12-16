@@ -15,7 +15,7 @@
         <link href="css/styles.css" rel="stylesheet" />
 
         <link href="{% static 'shopping/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen">
-    <script src="https://kit.fontawesome.com/4a70b7e99d.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/4a70b7e99d.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -83,17 +83,24 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ post.head_image.url }}" alt="..." /></div>
+                    <div class="col-md-6">
+                        {% if post.head_image %}
+                            <img class="card-img-top mb-5 mb-md-0" src="{{ post.head_image.url }}" alt="{{post.title}}의 head image" />
+                        {% else %}
+                            <img class="card-img-top mb-5 mb-md-0" src="https://picsum.photos/seed/{{post.id}}/600/700" alt="random image" />
+                        {% endif %}
+                    </div>
                     <div class="col-md-6">
                         <div class="small mb-1">{{ post.get_number }}</div>
-                        <h1 class="display-5 fw-bolder">{{ post.title }}</h1>
+                        <h1 class="display-5 fw-bolder">{{ post.title | upper }}</h1>
+                        <h5 class="text-muted">{{ post.hook_text }}</h5>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through">{{ post.price }} &#65510;</span>
                         </div>
-                        <p class="lead">{{ post.content }}</p>
+                        <p class="lead">{{ post.content | truncatewords:45 }}</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0 ml-3" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>

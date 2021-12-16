@@ -93,16 +93,23 @@
                         <div class="col mb-5">
                             <div class="card h-100">
                                 <!-- Product image-->
-                                <img class="card-img-top" src="{{ p.head_image.url }}" alt="..." />
+                                {% if p.head_image %}
+                                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{p}}의 head image" />
+                                {% else %}
+                                    <img class="card-img-top" src="https://picsum.photos/seed/{{p.id}}/450/300" alt="random image" />
+                                {% endif %}
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw-bolder">{{ p.title }}</h5>
+                                        <h4 class="fw-bolder">{{ p.title }}</h4>
+                                        {% if p.hook_text %}
+                                            <h6 class="text-muted">[{{ p.hook_text }}]</h6>
+                                        {% endif %}
                                         <!-- Product price-->
-                                        <h6>{{ p.price }} &#65510;</h6>
+                                        <p>{{ p.price }} &#65510;</p>
                                         <!-- Product category-->
-                                        <h6>카테고리</h6>
+                                        <p>카테고리</p>
                                         <!-- Product 설명-->
                                         <p>{{ p.content }}</p>
                                     </div>
