@@ -16,4 +16,7 @@ class Post(models.Model):
     def get_absolute_url(self):
         return f'/shopping/{self.pk}/'
 
+    def get_number(self):
+        return f'puzzle-{self.pk}'
+
     # 이미지, 제조사, 카테고리는 나중에
