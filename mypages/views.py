@@ -1,14 +1,20 @@
 from django.shortcuts import render
 
 # Create your views here.
-def landing(requset):
+def landing(request):
     return render(
-        requset,
+        request,
         'mypages/landing.html'
     )
 
-def my_page(requset):
+def my_page(request):
     return render(
-        requset,
+        request,
         'mypages/my_page.html'
+    )
+
+def my_company(request):
+    return render(
+        request,
+        'mypages/my_company.html'
     )

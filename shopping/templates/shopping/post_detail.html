@@ -27,13 +27,16 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="./index.html"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./blog_list.html"><i class="fas fa-blog"></i></a>
+              <a class="nav-link" href="/shopping/">Product</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./about_me.html"><i class="far fa-user"></i></a>
+              <a class="nav-link" href="/my_page/">My page</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my_company/">Company</a>
             </li>
             <li class="nav-item">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
@@ -81,8 +84,8 @@
 
         <!-- Product section-->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="container px-4 px-lg-5 my-5" id="main-area">
+                <div class="row gx-4 gx-lg-5 align-items-center" id="post-area">
                     <div class="col-md-6">
                         {% if post.head_image %}
                             <img class="card-img-top mb-5 mb-md-0" src="{{ post.head_image.url }}" alt="{{post.title}}의 head image" />
