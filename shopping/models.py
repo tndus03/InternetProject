@@ -7,6 +7,7 @@ class Post(models.Model):
     theme = models.CharField(max_length=30)  # 주제/테마
     countryM = models.CharField(max_length=30)  #제조국
 
+    head_image = models.ImageField(upload_to='shopping/images/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)  # 포스팅한 날짜
     updated_at = models.DateTimeField(auto_now=True)  # 수정된 날짜
 
