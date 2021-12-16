@@ -7,10 +7,13 @@ class Puzzle(models.Model):
     theme = models.CharField(max_length=30)  # 주제/테마
     countryM = models.CharField(max_length=30)  #제조국
 
-    create_at = models.DateTimeField(auto_now_add=True)  # 포스팅한 날짜
+    created_at = models.DateTimeField(auto_now_add=True)  # 포스팅한 날짜
     updated_at = models.DateTimeField(auto_now=True)  # 수정된 날짜
 
     def __str__(self):
         return f'[{self.pk}] {self.title}'
+
+    def get_absolute_url(self):
+        return f'/shopping/{self.pk}/'
 
     # 이미지, 제조사, 카테고리는 나중에
