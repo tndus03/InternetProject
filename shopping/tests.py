@@ -7,6 +7,28 @@ class TestView(TestCase):
     def setUp(self):
         self.client = Client()
 
+    def navbar_test(self, soup):
+        # 포스트 목록과 같은 네비게이션바가 있는가
+        navbar = soup.nav
+        self.assertIn('Product', navbar.text)
+        self.assertIn('My page', navbar.text)
+        self.assertIn('Company', navbar.text)
+
+        logo = navbar.find('a', text='Puzzle Together')
+        self.assertEqual(logo.attrs['href'], '/')
+
+        home = navbar.find('a', text='Home')
+        self.assertEqual(home.attrs['href'], '/')
+
+        blog = navbar.find('a', text='Product')
+        self.assertEqual(blog.attrs['href'], '/shopping/')
+
+        about = navbar.find('a', text='My page')
+        self.assertEqual(about.attrs['href'], '/my_page/')
+
+        about = navbar.find('a', text='Company')
+        self.assertEqual(about.attrs['href'], '/my_company/')
+
     def test_post_list(self):
         # 포스트 목록 페이지를 가져온다
         response = self.client.get('/shopping/')
@@ -16,10 +38,7 @@ class TestView(TestCase):
         soup = BeautifulSoup(response.content, 'html.parser')
         self.assertEqual(soup.title.text, 'Puzzle Together')
 
-        navbar = soup.nav
-        self.assertIn('Product', navbar.text)
-        self.assertIn('My page', navbar.text)
-        self.assertIn('Company', navbar.text)
+        self.navbar_test(soup)
 
         # 포스트(게시물)이 하나도 없는 경우
         self.assertEqual(Post.objects.count(), 0)
@@ -63,11 +82,9 @@ class TestView(TestCase):
         response = self.client.get('/shopping/1/')
         self.assertEqual(response.status_code, 200)
         soup = BeautifulSoup(response.content, 'html.parser')
-        # 포스트 목록과 같은 네비게이션바가 있는가
-        navbar = soup.nav
-        self.assertIn('Product', navbar.text)
-        self.assertIn('My page', navbar.text)
-        self.assertIn('Company', navbar.text)
+
+        self.navbar_test(soup)
+
         # 포스트의 title은 웹브라우저의 title에 있는가
         self.assertIn(post_001.title, soup.title.text)
         # 포스트의 title은 포스트 영역에도 있는가
