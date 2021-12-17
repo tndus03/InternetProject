@@ -1,14 +1,7 @@
 {% extends 'shopping/base.html' %}
 {% block main-area %}
-    <!-- Header-->
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5" id="na">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Shop in style</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-            </div>
-        </div>
-    </header>
+
+{% include 'shopping/header.html' %}
 
     <!-- Section-->
     <div class="container mt-3">
@@ -21,9 +14,13 @@
                         {% if post_list.exists %}
                         {% for p in post_list %}
                         <div class="col mb-5">
-                            <div class="card h-100">
+                            <div class="card h-100" id="post-{{p.pk}}">
                                 <!-- Product image-->
-                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">카테고리</div>
+                                {% if p.category %}
+                                    <div class="badge rounded-pill bg-secondary text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{ p.category }}</div>
+                                {% else %}
+                                    <div class="badge rounded-pill bg-secondary text-white position-absolute" style="top: 0.5rem; right: 0.5rem">미분류</div>
+                                {% endif %}
                                 {% if p.head_image %}
                                     <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{p}}의 head image" />
                                 {% else %}
@@ -39,13 +36,16 @@
                                         {% endif %}
                                         <!-- Product price-->
                                         <p>{{ p.price }} &#65510;</p>
-                                        <!-- Product category-->
-                                        <p>카테고리</p>
                                         <!-- Product 설명-->
                                         <p>{{ p.content | truncatewords:45}}</p>
                                     </div>
                                 </div>
                                 <!-- Product actions-->
+                                {% if p.make %}
+                                    <div class="badge bg-light text-dark">{{ p.make }}</div>
+                                {% else %}
+                                    <div class="badge bg-light text-dark">미상</div>
+                                {% endif %}
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ p.get_absolute_url }}">View options</a></div>
                                 </div>
@@ -63,18 +63,17 @@
 
             <div class="col-md-3 col-lg-2">
             <!-- Categories widget-->
-            <div class="container mt-5">
+            <div class="container mt-5 text-center" id="categories-card">
             <div class="card mb-4">
                 <div class="card-header">Categories</div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-6z">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">Web Design</a></li>
-                                    <li><a href="#!">HTML</a></li>
-                                    <li><a href="#!">Freebies</a></li>
-                                </ul>
-                            </div>
+                            <ul class="list-unstyled mb-0">
+                                {% for c in categories %}
+                                <li><a href="#!">&#9626;&nbsp;{{c}} ({{c.post_set.count}})</a></li>
+                                {% endfor %}
+                                <li><a href="#!">&#9626;&nbsp;미분류 ({{no_category_post_count}})</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
