@@ -10,9 +10,9 @@
 
     <!-- Section-->
                 <h1>
-                    {% if search_info %} <span class="badge rounded-pill bg-secondary text-white">{{search_info}}</span> {% endif %}
-                    {% if category %} PUZZLE <span class="badge rounded-pill bg-secondary text-white">{{ category }}</span> {% endif %}
-                    {% if make %} &nbsp;&nbsp;<i class="fas fa-hammer"></i>PUZZLE <span class="badge rounded-pill bg-white text-dark">{{ make }}({{make.post_set.count}})</span> {% endif %}
+                    {% if search_info %} <span class="badge rounded-pill bg-light text-dark">{{search_info}}</span> {% endif %}
+                    {% if category %} CATEGORY: <span class="badge rounded-pill bg-light text-dark">{{ category }}</span> {% endif %}
+                    {% if make %} &nbsp;&nbsp;<i class="fas fa-hammer"></i>제조사: <span class="badge rounded-pill bg-light text-dark">{{ make }}({{make.post_set.count}})</span> {% endif %}
                 </h1>
             <!-- Post -->
 <!--            <section class="py-5">-->
