@@ -17,11 +17,6 @@
                         {% else %}
                             <img class="card-img-top mb-5 mb-md-0" src="https://picsum.photos/seed/{{post.id}}/600/700" alt="random image" />
                         {% endif %}
-                        {% if post.make %}
-                            <div class="badge rounded-pill bg-dark text-white position-absolute">{{ post.make }}</div>
-                            {% else %}
-                            <div class="badge rounded-pill bg-dark text-white position-absolute">미상</div>
-                            {% endif %}
 
                         {% if user.is_authenticated and user == post.author %}
                             <a href="/shopping/update_post/{{post.pk}}/" class="btn btn-light btn-sm float-right">
@@ -30,6 +25,11 @@
                         {% endif %}
                     </div>
                     <div class="col-md-6">
+                        {% if post.make %}
+                            <div class="badge rounded-pill bg-dark text-white position-absolute">{{ post.make }}</div>
+                        {% else %}
+                            <div class="badge rounded-pill bg-dark text-white position-absolute">미상</div>
+                        {% endif %}
                         <div class="small mb-1">{{ post.get_number }}</div>
                         {% if post.category %}
                         <div class="badge rounded-pill bg-secondary text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{ post.category }}</div>
@@ -57,7 +57,7 @@
 
         <!-- Comments section-->
         <div class="mb-5 mx-5 justify-content-center" id="comment-area">
-            <div class="card bg-light"><h5 class="card-header">Leave a Comment:</h5>
+            <div class="card bg-light">
                 <div class="card-body">
                     <!-- Comment form-->
                     {% if user.is_authenticated %}
@@ -99,7 +99,7 @@
 <!--                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">-->
 <!--                    <div class="col mb-5">-->
 <!--                        <div class="card h-100">-->
-<!--                            &lt;!&ndash; Product image&ndash;&gt;-->
+<!--                            &lt;!&ndash; Product images&ndash;&gt;-->
 <!--                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />-->
 <!--                            &lt;!&ndash; Product details&ndash;&gt;-->
 <!--                            <div class="card-body p-4">-->
@@ -120,7 +120,7 @@
 <!--                        <div class="card h-100">-->
 <!--                            &lt;!&ndash; Sale badge&ndash;&gt;-->
 <!--                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>-->
-<!--                            &lt;!&ndash; Product image&ndash;&gt;-->
+<!--                            &lt;!&ndash; Product images&ndash;&gt;-->
 <!--                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />-->
 <!--                            &lt;!&ndash; Product details&ndash;&gt;-->
 <!--                            <div class="card-body p-4">-->
@@ -150,7 +150,7 @@
 <!--                        <div class="card h-100">-->
 <!--                            &lt;!&ndash; Sale badge&ndash;&gt;-->
 <!--                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>-->
-<!--                            &lt;!&ndash; Product image&ndash;&gt;-->
+<!--                            &lt;!&ndash; Product images&ndash;&gt;-->
 <!--                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />-->
 <!--                            &lt;!&ndash; Product details&ndash;&gt;-->
 <!--                            <div class="card-body p-4">-->
@@ -170,7 +170,7 @@
 <!--                    </div>-->
 <!--                    <div class="col mb-5">-->
 <!--                        <div class="card h-100">-->
-<!--                            &lt;!&ndash; Product image&ndash;&gt;-->
+<!--                            &lt;!&ndash; Product images&ndash;&gt;-->
 <!--                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />-->
 <!--                            &lt;!&ndash; Product details&ndash;&gt;-->
 <!--                            <div class="card-body p-4">-->

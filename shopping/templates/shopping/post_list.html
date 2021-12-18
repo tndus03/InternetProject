@@ -22,7 +22,7 @@
                         {% for p in post_list %}
                         <div class="col mb-5 mt-4">
                             <div class="card h-100" id="post-{{p.pk}}">
-                                <!-- Product image-->
+                                <!-- Product images-->
                                 {% if p.category %}
                                     <div class="badge rounded-pill bg-secondary text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{ p.category }}</div>
                                 {% else %}
