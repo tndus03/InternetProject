@@ -1,0 +1,23 @@
+{% extends 'shopping/base_full_width.html' %}
+
+{% block head_title %}Edit Post - Shopping Mall{% endblock %}
+{% block main-area %}
+
+    <h1 class="mt-5">Edit Post</h1>
+    <hr/>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <table>
+            {{form}}
+        </table>
+<!--            <div id="div_id_tags_str">-->
+<!--                <label for="id_tags_str">Tags:</label>-->
+<!--                <input type="text" name="tags_str" required id="id_tags_str" class="textinput textInput form-control">-->
+<!--            </div>-->
+<!--            <br>-->
+
+        <button type="submit" class="btn btn-dark float-right">Submit</button>
+    </form>
+
+{% endblock %}
