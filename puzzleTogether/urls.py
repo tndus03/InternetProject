@@ -22,6 +22,7 @@ urlpatterns = [
     path('shopping/', include('shopping.urls')),    # 서버IP/shopping
     path('admin/', admin.site.urls),    # 서버IP/admin
     path('', include('mypages.urls')),    # 서버IP/
+    path('accounts/', include('allauth.urls')),
     path('markdownx/', include('markdownx.urls')),
 ]
 
