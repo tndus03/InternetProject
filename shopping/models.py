@@ -21,6 +21,9 @@ class Make(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f'/shopping/make/{self.slug}'
+
 class Post(models.Model):
     title = models.CharField(max_length=50)  # 퍼즐 이름
     content = models.TextField()  # 퍼즐 설명
@@ -35,8 +38,8 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)  # 수정된 날짜
 
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
-    make = models.ForeignKey(Make, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)  # 카테고리
+    make = models.ForeignKey(Make, null=True, blank=True, on_delete=models.SET_NULL)  # 제조사
 
     def __str__(self):
         return f'[{self.pk}] {self.title} :: {self.author}'

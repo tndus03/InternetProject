@@ -1,8 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post, Category, Make
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
+class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Post
+    fields = ['title', 'price', 'theme', 'countryM', 'hook_text', 'content', 'head_image', 'category', 'make']
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
+            form.instance.author = current_user
+            response = super(PostCreate, self).form_valid(form)
+            tags_str = self.request.POST.get('tags_str')
+            if tags_str:
+                tags_str = tags_str.strip()
+                tags_str = tags_str.replace(',', ';')
+                tags_list = tags_str.split(';')
+                for t in tags_list:
+                    t = t.strip()
+                    tag, is_tag_created = Tag.objects.get_or_create(name=t)
+                    if is_tag_created:
+                        tag.slug = slugify(t, allow_unicode=True)
+                        tag.save()
+                    self.object.tags.add(tag)
+            return response
+        else:
+            return redirect('/shopping/')
+
 class PostList(ListView):
     model = Post
     ordering = '-pk'
@@ -13,10 +42,11 @@ class PostList(ListView):
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
         return context
 
-    # def make_get_context_data(self, *, object_list=None, **kwargs):
-    #     context = super(PostList, self).get_context_data()
-    #     context['makes'] = Make.objects.all()
-    #     return context
+    def make_get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PostList, self).make_get_context_data()
+        context['makes'] = Make.objects.all()
+        context['unknown_make'] = Post.objects.filter(make=None).count()
+        return context
 
 class PostDetail(DetailView):
     model = Post
@@ -26,6 +56,12 @@ class PostDetail(DetailView):
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
         # context['comment_form'] = CommentForm
+        return context
+
+    def make_get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PostList, self).make_get_context_data()
+        context['makes'] = Make.objects.all()
+        context['unknown_make'] = Post.objects.filter(make=None).count()
         return context
 
 def category_page(request, slug):
@@ -42,5 +78,22 @@ def category_page(request, slug):
                       'categories' : Category.objects.all(),
                       'no_category_post_count' : Post.objects.filter(category=None).count(),
                       'category' : category
+                  }
+                  )
+
+def make_page(request, slug):
+    if slug == 'unknown_make':
+        make = '미상'
+        post_list = Post.objects.filter(make=None)
+    else:
+        make = Make.objects.get(slug=slug)
+        post_list = Post.objects.filter(make=make)
+
+    return render(request, 'shopping/post_list.html',
+                  {
+                      'post_list' : post_list,
+                      'makes' : Make.objects.all(),
+                      'unknown_make' : Post.objects.filter(make=None).count(),
+                      'make' : make
                   }
                   )
