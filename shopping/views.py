@@ -146,3 +146,13 @@ def make_page(request, slug):
                       'make' : make
                   }
                   )
+
+# def about_me(request):
+#     category = Category.objects.order_by('-pk')
+#     return render(
+#         request,
+#         '/my_company.html',
+#     {
+#         'category' : category,
+#     }
+#     )
