@@ -1,5 +1,5 @@
 {% extends 'shopping/base_full_width.html' %}
-
+{% load crispy_forms_tags %}
 {% block head_title %}Create Post - Shopping Mall{% endblock %}
 {% block main-area %}
 
@@ -8,16 +8,11 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <table>
-            {{form}}
-        </table>
-<!--            <div id="div_id_tags_str">-->
-<!--                <label for="id_tags_str">Tags:</label>-->
-<!--                <input type="text" name="tags_str" required id="id_tags_str" class="textinput textInput form-control">-->
-<!--            </div>-->
-<!--            <br>-->
+        {{form | crispy}}
 
-        <button type="submit" class="btn btn-dark float-right">Submit</button>
+        <br>
+
+        <button type="submit" class="btn btn-dark float-right mb-3">Submit</button>
     </form>
-
+    {{form.media}}
 {% endblock %}

@@ -47,7 +47,7 @@
                                         <!-- Product price-->
                                         <p>{{ p.price }} &#65510;</p>
                                         <!-- Product 설명-->
-                                        <p>{{ p.content | truncatewords:45}}</p>
+                                        <p>{{ p.get_content_markdown | truncatewords_html:30 | safe }}</p>
                                     </div>
                                 </div>
                                 <!-- Product actions-->

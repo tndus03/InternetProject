@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from markdownx.utils import markdown
+from markdownx.models import MarkdownxField
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -26,7 +28,7 @@ class Make(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=50)  # 퍼즐 이름
-    content = models.TextField()  # 퍼즐 설명
+    content = MarkdownxField()  # 퍼즐 설명
     price = models.IntegerField()  # 가격
     theme = models.CharField(max_length=30)  # 주제/테마
     countryM = models.CharField(max_length=30)  #제조국
@@ -49,3 +51,6 @@ class Post(models.Model):
 
     def get_number(self):
         return f'puzzle-{self.pk}'
+
+    def get_content_markdown(self):
+        return markdown(self.content)
