@@ -17,7 +17,11 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 class Make(models.Model):
-    name = models.CharField(max_length=30, unique=True)
+    name = models.CharField(max_length=30, unique=True)  # 제조사명
+    address = models.CharField(max_length=100)  # 회사 주소
+    call = models.CharField(max_length=30)  # 고객센터 전화번호
+    addressIp = models.CharField(max_length=100)  # 인터넷 주소
+
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
 
     def __str__(self):

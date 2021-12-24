@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from shopping.models import Post, Category
+from shopping.models import Post, Category, Comment
 
 
 # Create your views here.
@@ -12,9 +12,13 @@ def landing(request):
     )
 
 def my_page(request):
+    comments = Comment.objects.order_by('-pk')
     return render(
         request,
-        'mypages/my_page.html'
+        'mypages/my_page.html',
+        {
+            'comments': comments,
+        }
     )
 
 def my_company(request):
@@ -22,7 +26,7 @@ def my_company(request):
     return render(
         request,
         'mypages/my_company.html',
-    {
+        {
         'Categories': Categories,
-    }
+        }
     )

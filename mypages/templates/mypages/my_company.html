@@ -13,39 +13,31 @@
 <body>
     {% include 'shopping/navbar.html' %}
 
-    <section>
+    <section class="margin-for-footer">
         <div class="container mt-4">
             <div class="row">
                 <div class="col-lg-8">
                     <h1>Puzzle Together</h1>
+                    <p>Puzzle Together! 함께 퍼즐 맞추자!<br/>종강 후 뭘 해야할 지 모르겠다고요? 취미를 갖고 싶은데 뭘 해야할 지 모르겠다고요? 여기 퍼즐이 있습니다! 누구나 쉽게 시작할 수 있는 퍼즐을 맞춰보는 것은 어떨까요?
+                    <br/>퍼즐은 두뇌를 훈련할 수 있는 아주 좋은 방법입니다. 또한, 기분이 좋지 않을 때나 잡생각이 많아질 때 퍼즐을 맞추면 잡생각이 줄어들고, 기분 전환이 되며 스트레스도 감소합니다.
+                    <br/>우리 한 번 퍼즐의 세계로 떠나보는 것은 어떨까요?<br/><br/><br/><br/></p>
+                    <h3>PORTFOLIO</h3>
+                    <div class="card" data-toggle="modal" data-target="#portfolio">
+                        <img class="card-img-top" src="{% static 'mypages/images/puzzle.jpg' %}">
+                    <div class="card-body">
+                        <h5 class="card-title">카테고리별 상품 개수</h5>
+                        <p>카테고리: 100pcs, 300pcs, 500pcs, 1000pcs</p>
+                    </div>
+                    </div>
                 </div>
                 <div class="col-lg-4">
-                    <img class="img-fluid" src="{% static 'mypages/images/puzzle_1280.jpg' %}">
+                    <img class="img-fluid" src="{% static 'mypages/images/puzzle-with.jpg' %}">
                 </div>
             </div>
         </div>
     </section>
 
-        <section class="margin-for-footer">
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-12">
-                    <h1>PORTFOLIO</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" data-toggle="modal" data-target="#portfolio">
-                        <img class="card-img-top" src="{% static 'mypages/images/puzzle.jpg' %}">
-                        <div class="card-body">
-                            <h5 class="card-title">카테고리별 상품 개수</h5>
-                            <p>퍼즐 조각 개수에 따른 상품 통계</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Modal1 -->
     <div class="modal fade" id="portfolio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -70,7 +62,7 @@
                             </div>
                         </div>
                         <div class="col-lg-5">
-                            <p>퍼즐 조각 개수에 따른 상품 통계</p>
+                            <p>카테고리별 상품 개수에 대한 통계입니다. 카테고리에는 100pcs, 300pcs, 500pcs, 1000pcs가 있습니다.</p>
                         </div>
                     </div>
                 </div>
@@ -83,8 +75,7 @@
     </div>
     <script>
         data = {
-            datasets: [{ backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-            borderColor: ['rgba(255, 99, 132, 1.0)', 'rgba(54, 162, 235, 1.0)', 'rgba(255, 206, 86, 1.0)', 'rgba(75, 192, 192, 1.0)', 'rgba(153, 102, 255, 1.0)'],
+            datasets: [{backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
 
             data: [{% for category in Categories %}
             '{{ category.post_set.count }}'
@@ -98,15 +89,11 @@
             {% if not forloop.last %},{% endif %}
             {% endfor %}
         ] };
-        var ctx = document.getElementById('myChart');
-          var myChart = new Chart(ctx, {
-            type: 'bar',
+        var ctx2 = document.getElementById('myChart');
+          var myChart2 = new Chart(ctx2, {
+            type: 'doughnut',
             data: data,
-            options: {
-              scales: {
-                yAxes: [{ticks: {beginAtZero: true}}]
-              }
-            }
+            options: {}
           });
     </script>
 

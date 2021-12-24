@@ -5,13 +5,55 @@
     <meta charset="UTF-8">
     <title>Puzzle Together</title>
     <link href="{% static 'shopping/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen">
-    <link href="{% static 'mypages/css/my_page.css' %}" rel="stylesheet" type="text/css" media="screen">
+    <link href="{% static 'mypages/css/my_company.css' %}" rel="stylesheet" type="text/css" media="screen">
     <link href="{% static 'shopping/css/shopping-post.css' %}" rel="stylesheet" type="text/css" media="screen">
     <script src="https://kit.fontawesome.com/4a70b7e99d.js" crossorigin="anonymous"></script>
 </head>
 <body>
     {% include 'shopping/navbar.html' %}
 
+    {% if user.is_authenticated %}
+    <section class="margin-for-footer">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-6 mt-4">
+                    <h3>안녕하세요! {{user.username}}님!</h3>
+                    {% if user.email %}
+                        <i class="far fa-envelope"></i>&nbsp;&nbsp;{{user.email}}
+                    {% else %}
+                        <i class="far fa-envelope"></i>&nbsp;&nbsp;이메일이 없습니다.
+                    {% endif %}
+                </div>
+                <div class="col-6 mt-4">
+                    <h4>작성한 댓글 보기</h4>
+                    {% for c in comments %}
+                        {% if c.author == user %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" >{{ c.post.title }}</h5>
+                                <p>{{ c.content }} </p>
+                                <a href="/shopping/{{c.post.pk}}"><button class="btn btn-secondary float-right"> GO </button></a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    {% else %}
+    <section class="margin-for-footer">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <h2>로그인이 필요한 기능입니다. 로그인 후 이용하세요.</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endif %}
 
     <div class="fixed-bottom">
         {% include 'shopping/footer.html' %}

@@ -12,7 +12,9 @@
                 <h1>
                     {% if search_info %} <span class="badge rounded-pill bg-light text-dark">{{search_info}}</span> {% endif %}
                     {% if category %} CATEGORY: <span class="badge rounded-pill bg-light text-dark">{{ category }}</span> {% endif %}
-                    {% if make %} &nbsp;&nbsp;<i class="fas fa-hammer"></i>제조사: <span class="badge rounded-pill bg-light text-dark">{{ make }}({{make.post_set.count}})</span> {% endif %}
+                    {% if make %} &nbsp;&nbsp;<i class="fas fa-hammer"></i>
+                    제조사: <span class="badge rounded-pill bg-light text-dark">{{ make }}</span>
+                    <p style="font-size: small"><br>{{make.address}}<br>{{make.call}}<br>{{make.addressIp}}</p>{% endif %}
                 </h1>
             <!-- Post -->
 <!--            <section class="py-5">-->
@@ -49,9 +51,9 @@
                                 </div>
                                 <!-- Product actions-->
                                 {% if p.make %}
-                                    <div class="badge bg-light text-dark">{{ p.make }}</div>
+                                    <div class="badge bg-light"><a href="{{p.make.get_absolute_url}}" class="text-decoration-none text-dark">{{ p.make }}</a></div>
                                 {% else %}
-                                    <div class="badge bg-light text-dark">미상</div>
+                                    <div class="badge bg-light"><a href="http://127.0.0.1:8000/shopping/make/unknown_make/" class="text-decoration-none text-dark">미상</a></div>
                                 {% endif %}
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ p.get_absolute_url }}">View options</a></div>

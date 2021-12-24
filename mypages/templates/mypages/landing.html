@@ -17,19 +17,24 @@
             <div class="row justify-content-between">
                 <div class="col-lg-6">
                     <h1 class="mt-5">Puzzle Together</h1>
-                    <p>귀엽고 예쁜 퍼즐 모음</p>
+                    <p>같이 퍼즐 맞출 사람은 여기로! 여기는 퍼즐 천국!</p>
                 </div>
                 <div class="col-lg-5">
                     <h2 class="mt-5">Puzzle - Recent Post</h2>
                     {% for post in recent_posts %}
                     <div class="card mt-1">
-                        <div class="card-body" style="background-color: gray">
+                        <div class="card-body" style="background-color: #ffdef1">
                             <h6>
-                                <a href="{{post.get_absolute_url}}" class="text-decoration-none text-light">{{post.title}}</a>
+                                <a href="{{post.get_absolute_url}}" class="text-decoration-none text-dark">{{post.title}}</a>
                             </h6>
-                            <span class="badge bg-link text-light float-right">
-                                <img width="40px" src="{{ post.head_image.url }}" alt="{{post.author}}">
-                                &nbsp;{{post.category}}&nbsp;&nbsp;{{post.price}} &#65510;
+                            <span class="badge bg-link text-dark float-right">
+                                {% if post.head_image %}
+                                    <img width="40px" src="{{ post.head_image.url }}" alt="{{post.author}}">
+                                &nbsp;  {{post.category}}&nbsp;&nbsp;{{post.price}} &#65510;
+                                {% else %}
+                                    <img class="card-img-top mb-5 mb-md-0" src="https://picsum.photos/seed/{{post.id}}/600/700" alt="random image" />
+                                    {{post.category}}&nbsp;&nbsp;{{post.price}} &#65510;
+                                {% endif %}
                             </span>
                         </div>
                     </div>
